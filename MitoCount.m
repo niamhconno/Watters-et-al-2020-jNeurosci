@@ -25,12 +25,12 @@ function MitoCount(filename)
 % 450 = 450 images (timepoints) in each time interval
 % With 4 images/s, this equates to 30 min time intervals
 kymo_size = 450;  
-fprintf('Each time interval is i% images.\n', kymo_size)
+fprintf('Each time interval is %i images.\n', kymo_size)
 
 % Drug addition time (kymograph before this time are considered baseline)
 % Set to 1 if there was no drug addition
 drug_add = 450;
-fprintf('Drug addition specified at image #%i.\n', drug_add)
+fprintf('Drug addition is specified at image #%i.\n', drug_add)
 
 % Identify columns for ImageNumber and AreaShape_Center_X within csv file
 image_num_col = 1;
@@ -58,7 +58,11 @@ M = sortrows(M,[image_num_col center_x_col]);
 %%%% Define time intervals (determined by kymo_size)
 %%%% e.g. 1 -> 450; 451 ->900; 901 ->1350 etc. = 30 min time intervals
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+
+% Specify number of intervals (maximum of 5)
+% = number of images/number of images per kymograph
+num_intervals = min(5,max(M(:,image_num_col)/kymo_size));
+
 % If there is no drug addition AND ONLY kymo_size IMAGES
 if drug_add == 1
    time_interval(1,1) = 1;
@@ -69,15 +73,15 @@ if drug_add == 1
 elseif drug_add < kymo_size
    time_interval(1,1) = 1;
    time_interval(2,1) = drug_add;
-   interval_range = 1:5; % 5 time intervals
+   interval_range = 1:num_intervals; 
 else
    time_interval(1,1) = drug_add - (kymo_size-1);
    time_interval(2,1) = drug_add;
-   interval_range = 1:5;
+   interval_range = 1:num_intervals;
 end
     
-% Each experiment must fit into a maximum of 5 time intervals
-for i = interval_range         
+% For each time interval (have already assigned 1st interval)
+for i = 1:num_intervals-1         
 % Only define time intervals if images exist for ALL images within
 % that time interval - otherwise the time interval is incomplete 
     if time_interval(2,i) + kymo_size <= max(M(:,image_num_col))    
@@ -152,9 +156,10 @@ disp('--------------------------------------------------------------------')
 disp('Filename:')
 disp(filename)
 fprintf('Number of images in .csv file: %i\n',size(mito_total,1))
-fprintf('Split into %i time intervals\n', max(interval_range))
+fprintf('Split into %i time intervals (%i images in each interval)\n',...
+    max(interval_range), kymo_size)
 fprintf('Average # mitochondria at each timepoint: %0.2f\n',nanmean(mito_total))
-disp('Mitochondrial counts are stored in mito_total variable of corresponding .mat file')
+disp('Mitochondrial counts are stored in mito_total variable of .mat file')
 disp('--------------------------------------------------------------------')
         
 end

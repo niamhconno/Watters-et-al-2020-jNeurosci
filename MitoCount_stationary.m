@@ -47,7 +47,7 @@ fprintf('Image width: %i\n', mito_most_dist)
 
 % Object must exist in 90% of timepoints
 stationary_percent = 0.9;  
-disp('To be considered stationary, obeject must remain within')
+disp('To be considered stationary, object must remain within')
 fprintf('+/- %0.2i of starting coordinate for %0.2i percent of the image\n', x_range, stationary_percent)
 disp('Objects just outside this range will be coloured cyan and warnings will be generated')
 input('Is this ok? (Enter or Ctrl+C to quit)')
@@ -361,6 +361,8 @@ for m = 1:size(time_interval,2)
              fprintf('Press CTRL+C to exit programme (figure and counts will not be saved)\n')
              input('(or just press any other key to continue [*figure will be saved*])');
        end
+       fprintf('Stationary mitochondria in time interval %0.0i: %0.0i\n', ...
+           interval_range(m), stationary_count(m))
         
        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
        %%% Save figure with filename & time_interval
@@ -370,4 +372,12 @@ for m = 1:size(time_interval,2)
    else
        fprintf('No files have been changed, moving onto next time interval\n')
    end
+end
+
+disp('===================================================')
+disp('===================================================')
+disp('Stationary count complete for all time intervals!')
+for i = 1:size(interval_range,2)
+    fprintf('Time Interval %0.0i: %0.0i\n', interval_range(i), stationary_count(i))
+end
 end
