@@ -4,7 +4,7 @@ If you use this code or documents herein, please cite: Watters et al., (2020) AM
 
 Matlab code to semi-automatically identify stationary mitochondria from time-lapse imaging of axonal mitochondria (requires user input)
 
-A sample input file is provided ('sample_cellprofiler_output.csv'), and sample output files (.mat and .fig) begin with 'X...'. (output filenames have been edited to avoid interference when you run the sample analysis).
+A sample input file is provided ('sample_cellprofiler_output.csv'), and sample output files (.mat and .fig) begin with 'X...' (one .bmp file provided to open outside Matlab. Output filenames have been edited to avoid interference when you run the sample analysis on your own machine :-).
 
 Sample analysis:
 1. Download and store files in folder
