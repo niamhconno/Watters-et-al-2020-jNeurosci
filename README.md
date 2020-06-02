@@ -1,8 +1,7 @@
 # Watters-et-al-2020-jNeurosci 
-# PMID: 32393534 DOI: 10.1523/JNEUROSCI.2067-19.2020
-Matlab code to semi-automatically identify stationary mitochondria from time-lapse imaging of axonal mitochondria (requires user input)
-
 If you use this code or documents herein, please cite: Watters et al., (2020) AMPK preferentially depresses retrograde transport of axonal mitochondria during localised nutrient deprivation. J Neurosci PMID: 32393534 DOI: 10.1523/JNEUROSCI.2067-19.2020
+
+# Matlab code to semi-automatically identify stationary mitochondria from time-lapse imaging of axonal mitochondria (requires user input)
 
 A sample input file is provided ('sample_cellprofiler_output.csv'), and sample output files (.mat and .fig) begin with 'X...'. (output filenames have been edited to avoid interference when you run the sample analysis).
 
