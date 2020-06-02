@@ -3,6 +3,10 @@
 %%% Requires kymograph to be previously plotted
 %%% 
 %%% Called from within MitoCount_stationary.m
+%%%
+%%% If you use this code, please cite:
+%%% Watters, Connolly et al., (2020) J Neurosci
+%%% DOI: 10.1523/JNEUROSCI.2067-19.2020
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function Mito_kymocolour_stationary_decision(filename,plot_time_int,x_range,y_axis)
