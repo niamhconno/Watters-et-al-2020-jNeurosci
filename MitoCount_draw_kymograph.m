@@ -14,6 +14,10 @@ function [h,y_axis] = MitoCount_draw_kymograph(filename,m)
 %%%
 %%% Sample function call: 
 %%% MitoCount_draw_kymograph('sample_cellprofiler_output1', 1)
+%%%
+%%% If you use this code, please cite:
+%%% Watters, Connolly et al., (2020) J Neurosci
+%%% DOI: 10.1523/JNEUROSCI.2067-19.2020
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 load(filename)
@@ -32,7 +36,7 @@ kymo_size = time_interval(2,plot_time_int) - time_interval(1,plot_time_int) +1;
 y_axis = ones(kymo_size,size(x_center,2));  
 
 for i = 1:kymo_size
-    % y-axis goes from kymo_size (450) to 1
+    % y-axis goes from kymo_size (450) to 1 (want to plot image 0 at top)
     y_axis(i,:) = y_axis(i,:) * kymo_size-i;     
 end
 
@@ -54,7 +58,14 @@ scatter(temp_x(:),temp_y(:),'.k')
 % Set limits of x axis
 xlim([0,mito_most_dist]);    
 
-ylabel('Inverted image number (i.e. time goes from top to bottom)')
+% Relabel y-axis tick labels (plotted images 0-450 from top to bottom)
+yTickLabels = arrayfun(@num2str,sort(y_axis(1:50:end,1)+1,'descend'),'uni',false);
+yTickLabels = [yTickLabels; 0]; % Append 0 to tick labels
+ax = gca;
+ax.YAxis.TickLabels = yTickLabels;
+
+% Set axis labels
+ylabel('Image number')
 xlabel('X coordinates')
 
 end
